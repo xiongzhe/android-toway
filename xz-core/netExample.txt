@@ -1,0 +1,61 @@
+    
+    /**
+     * 请求示例
+     **/
+    private void netExample() {
+        //第一种请求方式
+        final String url = "test";
+        final WeakHashMap<String, Object> params = new WeakHashMap<>();
+        final Observable<String> observable = NetCreator.getRxNetService().get(url, params);
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<String>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        Toast.makeText(_mActivity, s, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(_mActivity, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+        //第二种请求方式
+        RxNetClient.builder()
+                .url(url)
+                .params(params)
+                .build()
+                .get()
+                .subscribe(new Observer<String>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        Toast.makeText(_mActivity, s, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(_mActivity, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }

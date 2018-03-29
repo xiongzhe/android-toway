@@ -1,0 +1,51 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 26
+
+    defaultConfig {
+        applicationId "cn.xiongz.toway"
+        minSdkVersion 21
+        targetSdkVersion 26
+        versionCode 10000
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    dexOptions {
+        jumboMode true
+    }
+
+    signingConfigs {
+        sign {
+            storeFile file('toway')
+            storePassword '15909454409xz'
+            keyAlias 'toway'
+            keyPassword '15909454409xz'
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.sign
+        }
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.sign
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    provided project(':xz-annotations')
+    api project(':xz-ui')
+    annotationProcessor project(':xz-compiler')
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+}

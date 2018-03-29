@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_blue"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp48"
+        android:background="@color/c_app_theme"
+        android:minHeight="@dimen/dp48"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        app:navigationIcon="@drawable/ic_back_white"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ToolbarTheme">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="发布活动"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp18" />
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/et_publish_title"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp50"
+                android:background="@color/white"
+                android:hint="在这里输入活动标题"
+                android:paddingLeft="@dimen/dp5"
+                android:paddingRight="@dimen/dp5"
+                android:textColorHint="@color/c_808082"
+                android:textSize="@dimen/dp16" />
+
+            <EditText
+                android:id="@+id/et_publish_detail"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp100"
+                android:layout_marginTop="@dimen/dp1"
+                android:background="@color/white"
+                android:gravity="top"
+                android:hint="在这里输入活动详情"
+                android:padding="@dimen/dp5"
+                android:textColorHint="@color/c_808082"
+                android:textSize="@dimen/dp14" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="right"
+                android:paddingRight="@dimen/dp10"
+                android:text="0 / 2500" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp70"
+                android:layout_marginTop="@dimen/dp1"
+                android:background="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="添加活动图片"
+                        android:textColor="@color/c_app_theme" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="默认第一张为封面图片"
+                        android:textColor="@color/c_808082"
+                        android:textSize="@dimen/sp10" />
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/dp5" />
+            </FrameLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp50"
+                android:layout_marginTop="@dimen/dp1"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/dp5"
+                android:paddingRight="@dimen/dp5">
+
+                <TextView
+                    android:id="@+id/iv_publish_start_time_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="开始时间：" />
+
+                <ImageView
+                    android:id="@+id/iv_publish_start_time_arrow"
+                    android:layout_width="@dimen/dp7"
+                    android:layout_height="@dimen/dp11"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_arrow_right_gray" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/dp5"
+                    android:layout_toLeftOf="@id/iv_publish_start_time_arrow"
+                    android:layout_toRightOf="@id/iv_publish_start_time_title"
+                    android:gravity="center_vertical|right"
+                    android:text="2018-3-29" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp50"
+                android:layout_marginTop="@dimen/dp1"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/dp5"
+                android:paddingRight="@dimen/dp5">
+
+                <TextView
+                    android:id="@+id/iv_publish_end_time_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="结束时间：" />
+
+                <ImageView
+                    android:id="@+id/iv_publish_end_time_arrow"
+                    android:layout_width="@dimen/dp7"
+                    android:layout_height="@dimen/dp11"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_arrow_right_gray" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/dp5"
+                    android:layout_toLeftOf="@id/iv_publish_end_time_arrow"
+                    android:layout_toRightOf="@id/iv_publish_end_time_title"
+                    android:gravity="center_vertical|right"
+                    android:text="2018-3-29" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp50"
+                android:layout_marginTop="@dimen/dp5"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/dp5"
+                android:paddingRight="@dimen/dp5">
+
+                <TextView
+                    android:id="@+id/iv_publish_address_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="活动地点：" />
+
+                <ImageView
+                    android:id="@+id/iv_publish_address_arrow"
+                    android:layout_width="@dimen/dp7"
+                    android:layout_height="@dimen/dp11"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_arrow_right_gray" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/dp5"
+                    android:layout_toLeftOf="@id/iv_publish_address_arrow"
+                    android:layout_toRightOf="@id/iv_publish_address_title"
+                    android:gravity="center_vertical|right"
+                    android:hint="输入活动地址" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp50"
+                android:layout_marginTop="@dimen/dp5"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/dp5"
+                android:paddingRight="@dimen/dp5">
+
+                <TextView
+                    android:id="@+id/iv_publish_num_limit_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="人数限制：" />
+
+                <ImageView
+                    android:id="@+id/iv_publish_num_limit_arrow"
+                    android:layout_width="@dimen/dp7"
+                    android:layout_height="@dimen/dp11"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_arrow_right_gray" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/dp5"
+                    android:layout_toLeftOf="@id/iv_publish_num_limit_arrow"
+                    android:layout_toRightOf="@id/iv_publish_num_limit_title"
+                    android:gravity="center_vertical|right"
+                    android:hint="默认无限制" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp50"
+                android:layout_marginTop="@dimen/dp1"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/dp5"
+                android:paddingRight="@dimen/dp5">
+
+                <TextView
+                    android:id="@+id/iv_publish_phone_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="组织者电话：" />
+
+                <ImageView
+                    android:id="@+id/iv_publish_phone_arrow"
+                    android:layout_width="@dimen/dp7"
+                    android:layout_height="@dimen/dp11"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_arrow_right_gray" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/dp5"
+                    android:layout_toLeftOf="@id/iv_publish_phone_arrow"
+                    android:layout_toRightOf="@id/iv_publish_phone_title"
+                    android:gravity="center_vertical|right"
+                    android:hint="联系电话" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp50"
+                android:layout_marginTop="@dimen/dp5"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/dp5"
+                android:paddingRight="@dimen/dp5">
+
+                <TextView
+                    android:id="@+id/iv_publish_fee_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="活动费用(元)：" />
+
+                <ImageView
+                    android:id="@+id/iv_publish_fee_arrow"
+                    android:layout_width="@dimen/dp7"
+                    android:layout_height="@dimen/dp11"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_arrow_right_gray" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/dp5"
+                    android:layout_toLeftOf="@id/iv_publish_fee_arrow"
+                    android:layout_toRightOf="@id/iv_publish_fee_title"
+                    android:gravity="center_vertical|right"
+                    android:hint="默认免费" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp5"
+                android:background="@color/white"
+                android:padding="@dimen/dp5"
+                android:text="用户报名必填项" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingBottom="@dimen/dp15"
+                android:paddingLeft="@dimen/dp10"
+                android:paddingRight="@dimen/dp10"
+                android:paddingTop="@dimen/dp5">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_publish_btn_bg"
+                    android:paddingBottom="@dimen/dp10"
+                    android:paddingLeft="@dimen/dp20"
+                    android:paddingRight="@dimen/dp20"
+                    android:paddingTop="@dimen/dp10"
+                    android:text="姓名"
+                    android:textColor="@color/c_app_theme" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp10"
+                    android:background="@drawable/shape_publish_btn_bg"
+                    android:paddingBottom="@dimen/dp10"
+                    android:paddingLeft="@dimen/dp20"
+                    android:paddingRight="@dimen/dp20"
+                    android:paddingTop="@dimen/dp10"
+                    android:text="手机号码"
+                    android:textColor="@color/c_app_theme" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp10"
+                    android:background="@drawable/shape_publish_btn_bg"
+                    android:paddingBottom="@dimen/dp10"
+                    android:paddingLeft="@dimen/dp20"
+                    android:paddingRight="@dimen/dp20"
+                    android:paddingTop="@dimen/dp10"
+                    android:text="身份证号码"
+                    android:textColor="@color/c_app_theme" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp10"
+                    android:background="@drawable/shape_publish_btn_bg"
+                    android:paddingBottom="@dimen/dp10"
+                    android:paddingLeft="@dimen/dp20"
+                    android:paddingRight="@dimen/dp20"
+                    android:paddingTop="@dimen/dp10"
+                    android:text="性别"
+                    android:textColor="@color/c_app_theme" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp10"
+                    android:background="@drawable/shape_publish_btn_bg"
+                    android:paddingBottom="@dimen/dp10"
+                    android:paddingLeft="@dimen/dp20"
+                    android:paddingRight="@dimen/dp20"
+                    android:paddingTop="@dimen/dp10"
+                    android:text="年龄"
+                    android:textColor="@color/c_app_theme" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp5"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp10"
+                    android:background="@color/c_app_theme"
+                    android:text="确认发布"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp16" />
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.v7.widget.LinearLayoutCompat>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="c_app_theme">#1FB681</color>
+    <color name="c_app_theme_deep">#1FB681</color>
+
+    <color name="c_aaFFFFFF">#aaFFFFFF</color>
+    <color name="c_11000000">#11000000</color>
+    <color name="c_333333">#333333</color>
+    <color name="c_666666">#666666</color>
+
+</resources>
