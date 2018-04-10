@@ -14,6 +14,7 @@ android {
 
     dexOptions {
         jumboMode true
+        preDexLibraries = false
     }
 
     signingConfigs {
@@ -35,7 +36,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
 }
 
 dependencies {
@@ -48,4 +48,16 @@ dependencies {
     api project(':xz-ui')
     annotationProcessor project(':xz-compiler')
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+}
+
+//强制统一support版本
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '25.2.0'
+            }
+        }
+    }
 }

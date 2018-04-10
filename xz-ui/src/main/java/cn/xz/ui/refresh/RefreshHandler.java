@@ -44,4 +44,13 @@ public class RefreshHandler {
     public void stopRefresh() {
         stopRefresh(DEFAULT_REFRESH_TIMES);
     }
+
+    /**
+     * 立即停止刷新
+     */
+    public void stopRefreshNow() {
+        if (mSwipeRefresh != null && mSwipeRefresh.isRefreshing()) {
+            mSwipeRefresh.setRefreshing(false);
+        }
+    }
 }

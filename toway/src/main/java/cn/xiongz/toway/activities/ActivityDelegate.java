@@ -3,46 +3,49 @@ package cn.xiongz.toway.activities;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.alibaba.fastjson.JSONObject;
+import com.blankj.utilcode.util.ToastUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.WeakHashMap;
-import java.util.logging.Logger;
 
 import butterknife.BindView;
 import cn.xiongz.toway.R;
-import cn.xiongz.toway.common.net.ConstUrl;
+import cn.xiongz.toway.activities.detail.DetailDelegate;
 import cn.xiongz.toway.publish.PublishDelegate;
 import cn.xz.core.delegates.XzDelegate;
-import cn.xz.core.net.rx.ObserverProxy;
-import cn.xz.core.net.rx.RxNetClient;
-import cn.xz.core.util.json.FastjsonUtil;
-import cn.xz.core.util.log.XzLogger;
-import cn.xz.core.util.string.StringUtil;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
+import cn.xz.core.mvp.factory.CreatePresenter;
+import cn.xz.core.ui.loader.XzLoader;
+import cn.xz.ui.refresh.RefreshHandler;
 
 /**
  * 活动页面
  * Created by xiongz on 2018/3/28.
  */
-public class ActivityDelegate extends XzDelegate implements Toolbar.OnMenuItemClickListener {
+@CreatePresenter(ActivityPresenter.class)
+public class ActivityDelegate extends XzDelegate<ActivityContract.View, ActivityPresenter>
+        implements ActivityContract.View, Toolbar.OnMenuItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
+    @BindView(R.id.swipe_activity)
+    SwipeRefreshLayout swipeRefresh;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.rv_activity)
     RecyclerView rvActivity;
-
-    //活动列表
-    private List<ActivityEntity> mDatas = new ArrayList<>();
+    //刷新
+    private RefreshHandler mRefreshHandler;
+    //列表适配器
+    private ActivityAdapter mActivityAdapter;
+    //数据条数
+    private int mSize = 0;
 
     /**
      * Instance
@@ -65,8 +68,13 @@ public class ActivityDelegate extends XzDelegate implements Toolbar.OnMenuItemCl
 
         toolbar.inflateMenu(R.menu.activity);
         toolbar.setOnMenuItemClickListener(this);
+        final LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        rvActivity.setLayoutManager(manager);
+        rvActivity.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        mRefreshHandler = new RefreshHandler(swipeRefresh, this);
 
-        getActivityList();
+        XzLoader.showLoading(getContext());
+        getPresenter().init();
     }
 
     @Override
@@ -81,51 +89,41 @@ public class ActivityDelegate extends XzDelegate implements Toolbar.OnMenuItemCl
         }
     }
 
-    /**
-     * 获取活动列表信息
-     */
-    public void getActivityList() {
-        final WeakHashMap<String, Object> params = new WeakHashMap<>();
-        String url = ConstUrl.ACTIVITY_LIST;
-        RxNetClient.builder()
-                .url(url)
-                .params(params)
-                .build()
-                .get()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new ObserverProxy(url, new Observer<String>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                    }
-
-                    @Override
-                    public void onNext(String s) {
-                        parseActivityList(s);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        XzLogger.e("result", e.getMessage());
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                }));
+    @Override
+    public void setRecyclerView(List<ActivityEntity> data, int total) {
+        if (mActivityAdapter == null) {
+            mSize = 0;
+            mActivityAdapter = new ActivityAdapter(R.layout.item_recycler_activity, data);
+            mActivityAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    getParentDelegate().start(DetailDelegate.newInstance());
+                }
+            });
+            mActivityAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+                @Override
+                public void onLoadMoreRequested() {
+                    getPresenter().loadMore();
+                }
+            }, rvActivity);
+            rvActivity.setAdapter(mActivityAdapter);
+        } else {
+            if (mSize >= total) {
+                mActivityAdapter.loadMoreEnd();
+            } else {
+                mActivityAdapter.addData(data);
+                mSize = mActivityAdapter.getData().size();
+                mActivityAdapter.loadMoreComplete();
+            }
+        }
+        mRefreshHandler.stopRefreshNow();
+        XzLoader.stopLoading();
     }
 
-    /**
-     * 解析活动列表信息数据
-     */
-    private void parseActivityList(String response) {
-        JSONObject jsonObject = FastjsonUtil.parseObject(response);
-        final int code = jsonObject.getInteger("code");
-        if (code == 200) {
-            final String data = jsonObject.getJSONObject("data").getString("data");
-            List<ActivityEntity> shopList = FastjsonUtil.parseArray(data, ActivityEntity.class);
-
-        }
+    @Override
+    public void onRefresh() {
+        mActivityAdapter = null;
+        getPresenter().init();
+        mRefreshHandler.stopRefresh();
     }
 }

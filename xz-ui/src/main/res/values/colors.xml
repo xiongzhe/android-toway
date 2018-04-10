@@ -5,8 +5,11 @@
     <color name="c_app_theme_deep">#1FB681</color>
 
     <color name="c_aaFFFFFF">#aaFFFFFF</color>
-    <color name="c_11000000">#11000000</color>
+    <color name="c_line">#11000000</color>
     <color name="c_333333">#333333</color>
     <color name="c_666666">#666666</color>
+    <color name="c_f6b060">#f6b060</color>
+    <color name="c_fbfbfb">#fbfbfb</color>
+    <color name="c_f3b142">#f3b142</color>
 
 </resources>
